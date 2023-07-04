@@ -10,7 +10,7 @@ class Solution {
         }
 
         q.push(src);
-        dist[src] = 1;
+        dist[src] = 0;
 
         while(!q.empty()){
             int node = q.front();
@@ -69,7 +69,7 @@ class Solution {
         
         int ans = bfs(1,n*n,l);
 
-        return (ans == -1 ? -1 : ans-1);
+        return ans;
         
 
         
