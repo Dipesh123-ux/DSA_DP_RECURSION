@@ -1,25 +1,26 @@
 class Solution {
 
-void dfs_helper(int src,map<int,bool>&visited,map<int,list<int>>l){
+void dfs_helper(int src,map<int,bool>&visited,vector<vector<int>>c){
     visited[src] = true;
-    for(auto nbr : l[src]){
-        if(!visited[nbr]){
-            dfs_helper(nbr,visited,l);
+    for(int i = 0; i < c.size();i++){
+        if(c[src][i] && !visited[i]){
+            dfs_helper(i,visited,c);
         }
     }
 }
 
 
-int dfs(map<int,list<int>>&l){
+int dfs(vector<vector<int>>&c){
+    int n = c.size();
      map<int,bool> visited;
-     for(auto p : l){
-         visited[p.first] = false;
+     for(int i = 0; i < n; i++){
+         visited[i] = false;
      }
      int count = 0;
 
-     for(auto node : l){
-         if(!visited[node.first]){
-             dfs_helper(node.first,visited,l);
+     for(int i = 0; i < n; i++){
+         if(!visited[i]){
+             dfs_helper(i,visited,c);
              count++;
          }
      }
@@ -29,17 +30,7 @@ int dfs(map<int,list<int>>&l){
 
 public:
     int findCircleNum(vector<vector<int>>& c) {
-        map<int,list<int>> l;
-        int n =c.size();
-        for(int i = 0; i < n;i++){
-            for(int j = 0; j < n;j++){
-                if(c[i][j] == 1){
-                    l[i+1].push_back(j+1);
-                }
-            }
-
-        }
-
-        return dfs(l);
+       
+        return dfs(c);
     }
 };
