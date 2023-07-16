@@ -1,5 +1,7 @@
 Array.prototype.last = function() {
-   return  this.length > 0 ? this[this.length-1] : -1;
+   let n = this.length;
+   let nums = this;
+   return  n > 0 ? nums[n-1] : -1;
 };
 
 /**
