@@ -6,12 +6,7 @@ public:
 
         for(int i = nums.size()-1; i >= 0; i--){
             
-            if(nums[i] > sum){
-                sum = 0;
-            }
-
-            sum += nums[i];
-
+            sum = (nums[i] > sum) ? nums[i] : nums[i] + sum;
             ans = max(ans,sum);
         }
 
