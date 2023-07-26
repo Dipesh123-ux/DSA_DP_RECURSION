@@ -39,24 +39,25 @@ public:
         int m = s/2;
         int n = nums.size();
 
-        vector<vector<bool>>dp(n,vector<bool>(m+1,false));
-
-        for(int i = 0; i < n; i++){
-            dp[i][0] = true;
-        }
+        // vector<vector<bool>>dp(n,vector<bool>(m+1,false));
+         vector<bool> prev(m+1,false) , curr(m+1,false);
+      
+            prev[0] = true;
+        
 
         for(int i = 1; i < n; i++){
             for(int k = 0; k <= m; k++){
                 bool p = false;
                 if(nums[i] <= k){
-                    p = dp[i-1][k-nums[i]];
+                    p = prev[k-nums[i]];
                 }
-                bool np = dp[i-1][k];
-                dp[i][k] = p || np;
+                bool np = prev[k];
+                curr[k] = p || np;
             }
+            prev = curr;
         }
 
-        return dp[n-1][m];
+        return prev[m];
         
         // return solve(0,n,m,nums,dp);
     }
