@@ -1,35 +1,36 @@
 class Solution {
 public:
 
-unordered_map<string,bool> dp;
-
-bool solve(string s, unordered_map<string,int>&m){
-    if(s.size() == 0){
+bool solve(int i,vector<int>&dp,string s,set<string>&st){
+    if(i == s.size()){
         return true;
     }
 
-    if(dp.find(s) != dp.end()){
-        return dp[s];
+    if(dp[i] != -1){
+        return dp[i];
+    }
+    string temp;
+    for(int j = i; j < s.size();j++){
+         temp += s[j];
+         if(st.contains(temp)){
+             if(solve(j+1,dp,s,st)){
+                 return dp[i] = true;
+             }
+         }
+
     }
 
-    for(int i = 0; i < s.size();i++){
-        string temp = s.substr(0,i+1);
-        if(m.find(temp) != m.end()){
-             if(solve(s.substr(i+1),m)){
-                 return dp[s] = true;
-             }
-        }
-    }
-    return dp[s] = false;
+    return dp[i] = false;
 }
 
-
     bool wordBreak(string s, vector<string>& wordDict) {
-        unordered_map<string,int> m;
-        for(string c : wordDict){
-            m[c]++;
+        set<string>st;
+        for(auto c : wordDict){
+            st.insert(c);
         }
+        vector<int> dp(s.size()+1,-1);
+        
+        return solve(0,dp,s,st);
 
-        return solve(s,m);
     }
 };
