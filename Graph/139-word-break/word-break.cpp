@@ -28,9 +28,29 @@ bool solve(int i,vector<int>&dp,string s,set<string>&st){
         for(auto c : wordDict){
             st.insert(c);
         }
-        vector<int> dp(s.size()+1,-1);
+        int n = s.size();
+        vector<int> dp(n+1,0);
+         
+        dp[n] = 1;
+
+        for(int i = n-1; i >= 0; i--){
+            string temp;
+            for(int j = i; j < n; j++){
+                temp += s[j];
+                if(st.contains(temp)){
+                    if(dp[j+1]){
+                        dp[i] = true;
+                    }
+                }
+            }
+        }
+
+        return dp[0];
+
+
+
         
-        return solve(0,dp,s,st);
+        // return solve(0,dp,s,st);
 
     }
 };
