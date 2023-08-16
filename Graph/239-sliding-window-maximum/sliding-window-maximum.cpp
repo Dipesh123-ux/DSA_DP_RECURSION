@@ -13,14 +13,14 @@ public:
           }       
           l.push_back(nums[j]);  
             if(j-i+1<k)
-                ++j;
+                j++;
             else if(j-i+1==k)
             {
                 v.push_back(l.front());
                 if(nums[i]==l.front())
                     l.pop_front();
-                ++i;
-                ++j;
+                i++;
+                j++;
             }
         }
         
