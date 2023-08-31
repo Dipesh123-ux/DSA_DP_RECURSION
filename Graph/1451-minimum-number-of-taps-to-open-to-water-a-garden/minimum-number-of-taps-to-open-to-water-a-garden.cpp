@@ -30,19 +30,38 @@ int solve(int i,int maxEnd,vector<pair<int,int>>&range,int n){
 
 public:
     int minTaps(int n, vector<int>& ranges) {
-        vector<pair<int,int>> range(n+1);
+        vector<int> range(n+1,0);
         for(int i = 0; i < ranges.size();i++){
             int l = max(0,i-ranges[i]);
             int r = min(n,i+ranges[i]);
-            range.push_back({l,r});
+            range[l] = max(range[l],r);
         }
 
-        sort(range.begin(),range.end());
+        int maxEnd = 0;
+        int currEnd = 0;
+        int t = 0;
 
-        int res = solve(0,0,range,n);
+        for(int i = 0; i < range.size();i++){
+             if(i > maxEnd){
+                 return -1;
+             }
+
+             if(i > currEnd){
+                 t++;
+                 currEnd = maxEnd;
+             }
+
+             maxEnd = max(maxEnd,range[i]);
+        }
+
+        return t;
+
+        // sort(range.begin(),range.end());
+
+        // int res = solve(0,0,range,n);
 
 
-        return (res == 1e9 ? -1 : res);
+        // return (res == 1e9 ? -1 : res);
 
     }
 };
